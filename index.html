@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imagen Temporada 26/27 — Teatros Luchana x Samsa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1D2F49;
+  --navy-deep: #0c1322;
+  --steel: #657690;
+  --fog: #ADBCD6;
+  --mist: #EAEEF5;
+  --paper: #FFFFFF;
+  --sky-blue: #5CAEFF;
+  --pulse-green: #1CE867;
+  --deep-blue: #385E9D;
+  --teal: #37CFA8;
+  --aurora: linear-gradient(110deg, #1CE867 0%, #37CFA8 30%, #5CAEFF 65%, #385E9D 100%);
+  --green-blue: linear-gradient(135deg, #1CE867 0%, #5CAEFF 100%);
+  --blue-teal: linear-gradient(135deg, #5CAEFF 0%, #37CFA8 100%);
+  --fog-navy: linear-gradient(135deg, #ADBCD6 0%, #1D2F49 100%);
+  --font: 'Montserrat', sans-serif;
+  --pad-x: 120px;
+  --pad-top: 100px;
+  --pad-bottom: 80px;
+  --gap-title: 52px;
+  --gap-item: 28px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  font-family: var(--font);
+  background: #000;
+  color: var(--navy);
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+.deck { position: relative; width: 100vw; height: 100vh; }
+
+.slide {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  overflow: hidden;
+}
+
+.slide.active { opacity: 1; pointer-events: auto; }
+.slide--dark { background: var(--navy-deep); color: var(--paper); }
+.slide--light { background: var(--paper); color: var(--navy); }
+.slide--mist {
+  background: linear-gradient(135deg, #f3f7ff 0%, #e7eef8 60%, #e1ebe7 100%);
+  color: var(--navy);
+}
+
+.slide__content {
+  flex: 1;
+  padding: var(--pad-top) var(--pad-x) var(--pad-bottom);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.slide__content--top { justify-content: flex-start; padding-top: 80px; }
+
+.slide__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--pad-x) 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.slide__footer__center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.slide__footer__right { font-size: 13px; font-weight: 500; opacity: 0.4; }
+
+.eyebrow {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+
+.slide--light .eyebrow,
+.slide--mist .eyebrow { color: var(--steel); opacity: 1; }
+.slide--dark .eyebrow { color: var(--fog); opacity: 1; }
+
+h1 {
+  font-size: clamp(42px, 5vw, 72px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: clamp(32px, 3.5vw, 56px);
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.body {
+  font-size: clamp(15px, 1.2vw, 18px);
+  font-weight: 400;
+  line-height: 1.55;
+  color: var(--steel);
+  max-width: 640px;
+}
+
+.slide--dark .body { color: var(--fog); }
+
+.subtitle {
+  font-size: clamp(13px, 1vw, 16px);
+  color: var(--steel);
+  line-height: 1.5;
+}
+
+.slide--dark .subtitle { color: var(--fog); }
+
+.gradient-text {
+  background: var(--aurora);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gradient-text--green-blue {
+  background: var(--green-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-title {
+  font-size: clamp(72px, 10vw, 140px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, #1CE867 0%, #37CFA8 30%, #5CAEFF 60%, #385E9D 100%);
+  filter: blur(60px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--aurora);
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+.card {
+  background: var(--mist);
+  border-radius: 16px;
+  padding: 36px;
+}
+
+.card--dark { background: var(--navy-deep); color: var(--paper); }
+
+.card--outline {
+  background: transparent;
+  border: 1px solid var(--mist);
+  border-radius: 16px;
+  padding: 36px;
+}
+
+.card__badge {
+  display: inline-block;
+  background: var(--navy);
+  color: var(--paper);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 5px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.table-wrap {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--mist);
+}
+
+.table-wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(13px, 1vw, 16px);
+}
+
+.table-wrap thead { background: var(--navy); color: var(--paper); }
+
+.table-wrap th {
+  text-align: left;
+  padding: 12px 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.table-wrap td {
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--mist);
+}
+
+.table-wrap tr:last-child td { border-bottom: none; }
+.table-wrap .td-bold { font-weight: 600; }
+.table-wrap .td-right { text-align: right; font-weight: 700; }
+
+.table-wrap .row-total td {
+  background: var(--mist);
+  font-weight: 700;
+  font-size: clamp(14px, 1.1vw, 18px);
+}
+
+.stat {
+  border-top: 2px solid var(--navy);
+  padding-top: 12px;
+}
+
+.slide--dark .stat { border-top-color: var(--fog); }
+
+.stat__value {
+  font-size: clamp(36px, 4vw, 64px);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.stat__label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin-top: 4px;
+}
+
+.slide--dark .stat__label { color: var(--fog); }
+
+.light-decor {
+  position: absolute;
+  bottom: -40px;
+  right: -40px;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(28,232,103,0.08) 0%, rgba(55,207,168,0.06) 30%, rgba(92,174,255,0.04) 60%, transparent 100%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.pill {
+  display: inline-block;
+  padding: 6px 18px;
+  border: 1.5px solid var(--navy);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.slide--dark .pill { border-color: var(--fog); color: var(--fog); }
+
+.logo-samsa { height: 48px; }
+.logo-samsa--footer { height: 32px; }
+
+.quote {
+  border-left: 3px solid var(--teal);
+  padding-left: 20px;
+  font-style: italic;
+  font-size: clamp(15px, 1.2vw, 18px);
+  line-height: 1.5;
+  color: var(--steel);
+}
+
+.slide--dark .quote { color: var(--fog); }
+
+.bullet-list { list-style: none; }
+
+.bullet-list li {
+  position: relative;
+  padding-left: 22px;
+  padding-bottom: 10px;
+  font-size: clamp(14px, 1vw, 16px);
+  line-height: 1.55;
+  color: var(--steel);
+}
+
+.slide--dark .bullet-list li { color: var(--fog); }
+
+.bullet-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--aurora);
+}
+
+.video-ref-card {
+  background: var(--mist);
+  border-radius: 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.video-ref-card__poster {
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg, #1D2F49 0%, #0c1322 100%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fog);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  overflow: hidden;
+}
+
+.video-ref-card__poster::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--aurora);
+  opacity: 0.18;
+}
+
+.video-ref-card__body {
+  padding: 20px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.video-ref-card__label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--steel);
+}
+
+.video-ref-card__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.25;
+}
+
+.video-ref-card__price {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(101,118,144,0.35);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 12px;
+  color: var(--steel);
+}
+
+.video-ref-card__price strong {
+  color: var(--navy);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.tl {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  width: 100%;
+  position: relative;
+}
+
+.tl__step {
+  flex: 1;
+  padding-top: 44px;
+  position: relative;
+  padding-right: 24px;
+}
+
+.tl__step::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--aurora);
+}
+
+.tl__step:first-child::before { left: 12px; }
+.tl__step:last-child::before { right: 12px; }
+
+.tl__dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 3px solid var(--paper);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  box-shadow: 0 0 0 2px var(--navy);
+}
+
+.tl__num {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--steel);
+  margin-bottom: 6px;
+}
+
+.tl__title {
+  font-size: clamp(16px, 1.3vw, 20px);
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--navy);
+}
+
+.tl__desc {
+  font-size: 13px;
+  color: var(--steel);
+  line-height: 1.5;
+}
+
+.note-box {
+  background: linear-gradient(135deg, rgba(28,232,103,0.08), rgba(92,174,255,0.08));
+  border-left: 3px solid var(--teal);
+  padding: 18px 22px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--navy);
+  line-height: 1.55;
+}
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--aurora);
+  z-index: 100;
+  transition: width 0.4s ease;
+}
+
+@media (max-width: 1200px) {
+  :root { --pad-x: 60px; --pad-top: 60px; --pad-bottom: 50px; }
+}
+
+@media (max-width: 768px) {
+  :root { --pad-x: 32px; --pad-top: 40px; --pad-bottom: 32px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .tl { flex-direction: column; gap: 24px; }
+  .tl__step::before { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="deck" id="deck">
+
+<!-- ============================================
+     SLIDE 01 · COVER
+     ============================================ -->
+<section class="slide slide--dark active" data-section="PROPUESTA · TEMPORADA 26/27">
+  <div class="orb" style="width:500px;height:500px;top:-100px;right:-50px;opacity:0.4;"></div>
+  <div class="blob" style="width:600px;height:250px;bottom:50px;right:100px;opacity:0.25;transform:rotate(-20deg);"></div>
+
+  <div class="slide__content">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:auto;">
+      <img src="assets/logo-samsa-dark.png" class="logo-samsa" alt="Samsa Creative">
+      <img src="assets/logo-cliente.png" alt="Teatros Luchana" style="height:64px;width:auto;">
+    </div>
+
+    <div style="margin-top:auto;margin-bottom:60px;">
+      <p class="eyebrow" style="color:var(--fog);">TEATROS LUCHANA · IMAGEN DE TEMPORADA 26/27</p>
+      <h1 style="font-size:clamp(56px,8vw,108px);letter-spacing:-0.03em;">
+        <span class="gradient-text">Deja lo digital,</span><br>
+        ven al teatro.
+      </h1>
+      <p class="body" style="margin-top:28px;max-width:680px;">
+        Continuamos el territorio narrativo de la temporada anterior con un giro estético hacia algo fresco, con posibilidad disruptiva. Concepto paragua nuevo, terrenos narrativos para los 12 claims, vídeo de presentación y paquete gráfico editable.
+      </p>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+      <p style="font-size:13px;color:var(--fog);opacity:0.6;">Teatros Luchana × Samsa Studio · 2026</p>
+      <p style="font-size:13px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--fog);opacity:0.6;">PROPUESTA · JUNIO 2026</p>
+    </div>
+  </div>
+
+  <div class="slide__footer">
+    <div></div>
+    <div class="slide__footer__center" style="color:var(--fog);">PROPUESTA · TEMPORADA 26/27</div>
+    <div class="slide__footer__right" style="color:var(--fog);">01</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 02 · INDICE
+     ============================================ -->
+<section class="slide slide--light" data-section="INDICE">
+  <div class="blob" style="width:400px;height:200px;bottom:-30px;right:-40px;opacity:0.12;"></div>
+  <div class="slide__content slide__content--top">
+    <p class="eyebrow">INDICE</p>
+    <h2 style="margin-bottom:40px;">Lo que vamos a ver.</h2>
+
+    <div class="grid-3" style="margin-top:30px;gap:28px;">
+      <div style="border-top:2px solid var(--navy);padding-top:16px;">
+        <span style="font-size:13px;font-weight:500;color:var(--steel);">01</span>
+        <h3 style="margin-top:8px;">El encargo.</h3>
+        <p class="subtitle" style="margin-top:6px;">Continuidad y giro estético.</p>
+      </div>
+      <div style="border-top:2px solid var(--navy);padding-top:16px;">
+        <span style="font-size:13px;font-weight:500;color:var(--steel);">02</span>
+        <h3 style="margin-top:8px;">Los bloques.</h3>
+        <p class="subtitle" style="margin-top:6px;">Concepto, vídeo y piezas.</p>
+      </div>
+      <div style="border-top:2px solid var(--navy);padding-top:16px;">
+        <span style="font-size:13px;font-weight:500;color:var(--steel);">03</span>
+        <h3 style="margin-top:8px;">Referencias de vídeo.</h3>
+        <p class="subtitle" style="margin-top:6px;">Tres caminos por presupuesto.</p>
+      </div>
+      <div style="border-top:2px solid var(--navy);padding-top:16px;">
+        <span style="font-size:13px;font-weight:500;color:var(--steel);">04</span>
+        <h3 style="margin-top:8px;">Cronograma.</h3>
+        <p class="subtitle" style="margin-top:6px;">Junio a mediados de agosto.</p>
+      </div>
+      <div style="border-top:2px solid var(--navy);padding-top:16px;">
+        <span style="font-size:13px;font-weight:500;color:var(--steel);">05</span>
+        <h3 style="margin-top:8px;">Inversión.</h3>
+        <p class="subtitle" style="margin-top:6px;">Horquilla orientativa por bloque.</p>
+      </div>
+      <div style="border-top:2px solid var(--navy);padding-top:16px;">
+        <span style="font-size:13px;font-weight:500;color:var(--steel);">06</span>
+        <h3 style="margin-top:8px;">Siguiente paso.</h3>
+        <p class="subtitle" style="margin-top:6px;">Cómo seguimos.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide__footer">
+    <img src="assets/logo-samsa-light.png" class="logo-samsa--footer" alt="Samsa">
+    <div class="slide__footer__center" style="color:var(--steel);">INDICE</div>
+    <div class="slide__footer__right" style="color:var(--steel);">02</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 03 · SECTION DIVIDER 01
+     ============================================ -->
+<section class="slide slide--dark" data-section="SECCION 1">
+  <div class="orb" style="width:400px;height:400px;top:80px;right:150px;opacity:0.4;"></div>
+  <div class="blob" style="width:500px;height:200px;bottom:100px;left:200px;opacity:0.2;transform:rotate(-15deg);"></div>
+
+  <div class="slide__content">
+    <div style="margin-top:auto;">
+      <p class="eyebrow" style="color:var(--fog);">01 — EL ENCARGO</p>
+      <h1 class="section-title">
+        <span class="gradient-text">El encargo.</span>
+      </h1>
+    </div>
+  </div>
+
+  <div class="slide__footer">
+    <img src="assets/logo-samsa-dark.png" class="logo-samsa--footer" alt="Samsa">
+    <div class="slide__footer__center" style="color:var(--fog);">SECCION 1</div>
+    <div class="slide__footer__right" style="color:var(--fog);">03</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 04 · ENCARGO · CONTINUIDAD + GIRO
+     ============================================ -->
+<section class="slide slide--light" data-section="01 · EL ENCARGO">
+  <div class="light-decor"></div>
+  <div class="slide__content slide__content--top">
+    <p class="eyebrow">EL ENCARGO</p>
+    <h2 style="margin-bottom:32px;">Continuamos la conversación.<br><span class="gradient-text">Renovamos el código.</span></h2>
+
+    <p class="body" style="max-width:880px;margin-bottom:40px;">
+      Mantenemos la línea madre que abristeis la temporada anterior (dejar lo digital, ir al teatro) y jubilamos el claim "Rompe pantallas" para construir un nuevo paraguas conceptual sobre el mismo territorio: la comparativa cómica entre las fricciones de las plataformas y la experiencia del teatro. El giro lo damos en la estética: más fresco, con posibilidad disruptiva, alejado del registro teatral convencional.
+    </p>
+
+    <div class="grid-2" style="gap:36px;">
+      <div class="card--outline" style="padding:32px;">
+        <span class="pill" style="margin-bottom:18px;">Se mantiene</span>
+        <h3 style="margin-top:16px;margin-bottom:14px;font-size:22px;">Lo que heredamos.</h3>
+        <ul class="bullet-list">
+          <li>Tipografía <strong>Monolito Sans</strong> diseñada en exclusiva para Luchana.</li>
+          <li>Estrella como guiño, presente de forma más sutil.</li>
+          <li>Territorio narrativo digital vs teatro.</li>
+        </ul>
+      </div>
+      <div class="card" style="padding:32px;">
+        <span class="pill" style="margin-bottom:18px;background:var(--navy);color:var(--paper);border-color:var(--navy);">Se renueva</span>
+        <h3 style="margin-top:16px;margin-bottom:14px;font-size:22px;">Lo que evoluciona.</h3>
+        <ul class="bullet-list">
+          <li><strong>Paraguas conceptual</strong> nuevo, sin "Rompe pantallas".</li>
+          <li><strong>Refresh del sistema visual</strong>, alineado al pasado.</li>
+          <li><strong>Tono</strong>: cómico, fresco, con borde disruptivo (referencia direccional: Centro Dramático Nacional).</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide__footer">
+    <img src="assets/logo-samsa-light.png" class="logo-samsa--footer" alt="Samsa">
+    <div class="slide__footer__center" style="color:var(--steel);">01 · EL ENCARGO</div>
+    <div class="slide__footer__right" style="color:var(--steel);">04</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 05 · SECTION DIVIDER 02
+     ============================================ -->
+<section class="slide slide--dark" data-section="SECCION 2">
+  <div class="orb" style="width:400px;height:400px;top:80px;left:150px;opacity:0.4;"></div>
+  <div class="blob" style="width:500px;height:200px;bottom:100px;right:200px;opacity:0.2;transform:rotate(15deg);"></div>
+
+  <div class="slide__content">
+    <div style="margin-top:auto;">
+      <p class="eyebrow" style="color:var(--fog);">02 — ALCANCE</p>
+      <h1 class="section-title">
+        <span class="gradient-text">Tres bloques.</span>
+      </h1>
+      <p class="body" style="margin-top:24px;max-width:680px;">
+        Conceptualización + vídeo + paquete gráfico. La gala de presentación queda fuera de esta propuesta inicial.
+      </p>
+    </div>
+  </div>
+
+  <div class="slide__footer">
+    <img src="assets/logo-samsa-dark.png" class="logo-samsa--footer" alt="Samsa">
+    <div class="slide__footer__center" style="color:var(--fog);">SECCION 2</div>
+    <div class="slide__footer__right" style="color:var(--fog);">05</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 06 · BLOQUE 01 · CONCEPTUALIZACION
+     ============================================ -->
+<section class="slide slide--light" data-section="02 · ALCANCE">
+  <div class="light-decor"></div>
+  <div class="slide__content slide__content--top">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+      <span class="card__badge" style="margin-bottom:0;">BLOQUE 01</span>
+      <span class="eyebrow" style="margin-bottom:0;">CONCEPTUALIZACION Y NARRATIVA</span>
+    </div>
+    <h2 style="margin-bottom:24px;">Un paraguas, doce claims,<br><span class="gradient-text">un guión para el vídeo.</span></h2>
+
+    <p class="body" style="max-width:880px;margin-bottom:28px;">
+      Punto de partida creativo de toda la temporada. Desarrollamos el nuevo concepto paragua, los terrenos narrativos que sostienen los 12 claims del año, y el guión del vídeo de presentación. Es el bloque sobre el que se apoyan los siguientes.
+    </p>
+
+    <div class="grid-2" style="gap:36px;align-items:stretch;">
+      <div>
+        <h3 style="font-size:20px;margin-bottom:14px;">Incluye</h3>
+        <ul class="bullet-list">
+          <li>Nuevo paraguas conceptual sustituto de "Rompe pantallas".</li>
+          <li>Terrenos narrativos para los 12 claims del año.</li>
+          <li>Guión del vídeo de presentación.</li>
+          <li>Dirección de arte y referencias visuales del sistema.</li>
+          <li>Sesiones de aprobación con vuestro equipo.</li>
+        </ul>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;justify-content:center;">
+        <div class="stat">
+          <div class="stat__value gradient-text">€1.500 - €2.000</div>
+          <div class="stat__label">Inversión orientativa</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value">3 semanas</div>
+          <div class="stat__label">Plazo estimado</div>
+        </div>
+        <div class="note-box">
+          La aprobación de este bloque es el gate para arrancar el vídeo y el paquete gráfico.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide__footer">
+    <img src="assets/logo-samsa-light.png" class="logo-samsa--footer" alt="Samsa">
+    <div class="slide__footer__center" style="color:var(--steel);">02 · ALCANCE</div>
+    <div class="slide__footer__right" style="color:var(--steel);">06</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 07 · BLOQUE 02 · VIDEO
+     ============================================ -->
+<section class="slide slide--light" data-section="02 · ALCANCE">
+  <div class="light-decor"></div>
+  <div class="slide__content slide__content--top">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+      <span class="card__badge" style="margin-bottom:0;">BLOQUE 02</span>
+      <span class="eyebrow" style="margin-bottom:0;">VIDEO PRESENTACION DE TEMPORADA</span>
+    </div>
+    <h2 style="margin-bottom:24px;">Ruta híbrida única:<br><span class="gradient-text">filmación + IA + motion graphics.</span></h2>
+
+    <p class="body" style="max-width:880px;margin-bottom:28px;">
+      Spot máster de la temporada, 45 segundos a 1 minuto. Una sola ruta creativa que combina filmación real, recursos generados con IA bajo dirección de arte, y motion graphics para mantener el tono cómico y la energía visual. La horquilla se mueve según el nivel de producción (rodaje propio vs stock dirigido, IA básica vs IA + 3D, complejidad de postpro).
+    </p>
+
+    <div class="grid-2" style="gap:36px;align-items:stretch;">
+      <div>
+        <h3 style="font-size:20px;margin-bottom:14px;">Incluye</h3>
+        <ul class="bullet-list">
+          <li>Dirección creativa y storyboard a partir del guión del Bloque 01.</li>
+          <li>Producción audiovisual: filmación + IA + motion graphics.</li>
+          <li>Postproducción completa, color y sonido.</li>
+          <li>Locución, música y mezcla final.</li>
+          <li>Render en Full HD (4K opcional según ruta).</li>
+        </ul>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;justify-content:center;">
+        <div class="stat">
+          <div class="stat__value gradient-text">€2.500 - €6.000</div>
+          <div class="stat__label">Horquilla orientativa</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value">45s - 60s</div>
+          <div class="stat__label">Duración acordada (cerrada en guión)</div>
+        </div>
+        <div class="note-box">
+          En la sección 03 desglosamos tres referencias de vídeo con su precio orientativo, para que podáis anclar la decisión a piezas concretas.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide__footer">
+    <img src="assets/logo-samsa-light.png" class="logo-samsa--footer" alt="Samsa">
+    <div class="slide__footer__center" style="color:var(--steel);">02 · ALCANCE</div>
+    <div class="slide__footer__right" style="color:var(--steel);">07</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 08 · BLOQUE 03 · 12 PIEZAS + CANVA
+     ============================================ -->
+<section class="slide slide--light" data-section="02 · ALCANCE">
+  <div class="light-decor"></div>
+  <div class="slide__content slide__content--top">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+      <span class="card__badge" style="margin-bottom:0;">BLOQUE 03</span>
+      <span class="eyebrow" style="margin-bottom:0;">PAQUETE GRAFICO + PLANTILLAS CANVA</span>
+    </div>
+    <h2 style="margin-bottom:24px;">Doce piezas creativas<br><span class="gradient-text">y plantillas editables.</span></h2>
+
+    <p class="body" style="max-width:880px;margin-bottom:28px;">
+      Sistema visual replicable construido sobre un key visual central. Mix de estáticas + piezas con movimiento (GIFs y loops cortos) para los 12 claims del año. Cierra con plantillas Canva editables en tres formatos (cuadrado 1:1, vertical 4:5, vertical 9:16) para que vuestro equipo de redes pueda producir adaptaciones internas sin depender de nosotros.
+    </p>
+
+    <div class="grid-2" style="gap:36px;align-items:stretch;">
+      <div>
+        <h3 style="font-size:20px;margin-bottom:14px;">Incluye</h3>
+        <ul class="bullet-list">
+          <li>Key visual y sistema replicable a 12 ejecuciones.</li>
+          <li><strong>12 piezas creativas</strong>, mix de estáticas + dinámicas (GIFs y loops cortos).</li>
+          <li>Integración de Monolito Sans heredada.</li>
+          <li><strong>Plantillas Canva</strong> editables en 3 formatos: <strong>1:1, 4:5 y 9:16</strong>.</li>
+          <li>Guía rápida de uso para el equipo de Luchana.</li>
+        </ul>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px;justify-content:center;">
+        <div class="stat">
+          <div class="stat__value gradient-text">€1.900 - €2.800</div>
+          <div class="stat__label">Inversión orientativa</div>
+        </div>
+        <div class="stat">
+          <div class="stat__value">3 - 4 semanas</div>
+          <div class="stat__label">Plazo estimado</div>
+        </div>
+        <div class="note-box">
+          Las plantillas Canva sustituyen el clásico paquete de "adaptaciones x5 tamaños": os dan autonomía real para todo el año, no solo para esta campaña.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide__footer">
+    <img src="assets/logo-samsa-light.png" class="logo-samsa--footer" alt="Samsa">
+    <div class="slide__footer__center" style="color:var(--steel);">02 · ALCANCE</div>
+    <div class="slide__footer__right" style="color:var(--steel);">08</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 09 · SECTION DIVIDER 03
+     ============================================ -->
+<section class="slide slide--dark" data-section="SECCION 3">
+  <div class="orb" style="width:400px;height:400px;top:80px;right:150px;opacity:0.4;"></div>
+  <div class="blob" style="width:500px;height:200px;bottom:100px;left:200px;opacity:0.2;transform:rotate(-15deg);"></div>
+
+  <div class="slide__content">
+    <div style="margin-top:auto;">
+      <p class="eyebrow" style="color:var(--fog);">03 — REFERENCIAS DE VIDEO</p>
+      <h1 class="section-title">
+        <span class="gradient-text">Tres referencias.</span>
+      </h1>
+      <p class="body" style="margin-top:24px;max-width:680px;">
+        Tres piezas reales que combinan filmación + IA + motion graphics. Cada una asociada a un punto distinto de la horquilla del Bloque 02 para anclar la decisión a algo tangible.
+      </p>
+    </div>
+  </div>
+
+  <div class="slide__footer">
+    <img src="assets/logo-samsa-dark.png" class="logo-samsa--footer" alt="Samsa">
+    <div class="slide__footer__center" style="color:var(--fog);">SECCION 3</div>
+    <div class="slide__footer__right" style="color:var(--fog);">09</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 10 · 3 VIDEOS REFERENCIA (PLACEHOLDERS)
+     ============================================ -->
+<section class="slide slide--light" data-section="03 · REFERENCIAS DE VIDEO">
+  <div class="light-decor"></div>
+  <div class="slide__content slide__content--top" style="padding-top:60px;">
+    <p class="eyebrow">REFERENCIAS DE VIDEO</p>
+    <h2 style="margin-bottom:20px;">Tres caminos, <span class="gradient-text">tres niveles de inversión.</span></h2>
+    <p class="body" style="max-width:880px;margin-bottom:32px;">
+      Cada referencia muestra una combinación distinta de las tres técnicas (filmación, IA, motion). Os sirve para entender qué obtenéis en cada tramo de presupuesto.
+    </p>
+
+    <div class="grid-3" style="gap:24px;align-items:stretch;">
+      <div class="video-ref-card">
+        <div class="video-ref-card__poster">REFERENCIA 01 · POR CARGAR</div>
+        <div class="video-ref-card__body">
+          <span class="video-ref-card__label">RUTA BASE</span>
+          <div class="video-ref-card__title">Referencia 01<br><span style="font-weight:400;color:var(--steel);font-size:13px;">[Pendiente · enlace + descripción]</span></div>
+          <div class="video-ref-card__price">
+            <span>Orientativo</span>
+            <strong>€2.500</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-ref-card">
+        <div class="video-ref-card__poster">REFERENCIA 02 · POR CARGAR</div>
+        <div class="video-ref-card__body">
+          <span class="video-ref-card__label">RUTA INTERMEDIA</span>
+          <div class="video-ref-card__title">Referencia 02<br><span style="font-weight:400;color:var(--steel);font-size:13px;">[Pendiente · enlace + descripción]</span></div>
+          <div class="video-ref-card__price">
+            <span>Orientativo</span>
+            <strong>€4.000</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-ref-card">
+        <div class="video-ref-card__poster">REFERENCIA 03 · POR CARGAR</div>
+        <div class="video-ref-card__body">
+          <span class="video-ref-card__label">RUTA AMBICIOSA</span>
+          <div class="video-ref-card__title">Referencia 03<br><span style="font-weight:400;color:var(--steel);font-size:13px;">[Pendiente · enlace + descripción]</span></div>
+          <div class="video-ref-card__price">
+            <span>Orientativo</span>
+            <strong>€6.000</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:12px;color:var(--steel);margin-top:24px;font-style:italic;">
+      Tres referencias finales en curva de revisión interna. Las incorporamos en la siguiente versión del documento junto con la bajada conceptual del Bloque 01.
+    </p>
+  </div>
+
+  <div class="slide__footer">
+    <img src="assets/logo-samsa-light.png" class="logo-samsa--footer" alt="Samsa">
+    <div class="slide__footer__center" style="color:var(--steel);">03 · REFERENCIAS DE VIDEO</div>
+    <div class="slide__footer__right" style="color:var(--steel);">10</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 11 · SECTION DIVIDER 04 · CRONOGRAMA
+     ============================================ -->
+<section class="slide slide--dark" data-section="SECCION 4">
+  <div class="orb" style="width:400px;height:400px;top:80px;left:150px;opacity:0.4;"></div>
+  <div class="blob" style="width:500px;height:200px;bottom:100px;right:200px;opacity:0.2;transform:rotate(15deg);"></div>
+
+  <div class="slide__content">
+    <div style="margin-top:auto;">
+      <p class="eyebrow" style="color:var(--fog);">04 — CRONOGRAMA</p>
+      <h1 class="section-title">
+        <span class="gradient-text">Calendario.</span>
+      </h1>
+      <p class="body" style="margin-top:24px;max-width:680px;">
+        Cerramos todo antes de las vacaciones. Junio para concepto, julio y primera quincena de agosto para producción, entrega a mediados de agosto.
+      </p>
+    </div>
+  </div>
+
+  <div class="slide__footer">
+    <img src="assets/logo-samsa-dark.png" class="logo-samsa--footer" alt="Samsa">
+    <div class="slide__footer__center" style="color:var(--fog);">SECCION 4</div>
+    <div class="slide__footer__right" style="color:var(--fog);">11</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 12 · CRONOGRAMA TIMELINE
+     ============================================ -->
+<section class="slide slide--light" data-section="04 · CRONOGRAMA">
+  <div class="light-decor"></div>
+  <div class="slide__content slide__content--top">
+    <p class="eyebrow">CRONOGRAMA</p>
+    <h2 style="margin-bottom:50px;">De junio a mediados de agosto.<br><span class="gradient-text">Cerramos antes del verano.</span></h2>
+
+    <div class="tl">
+      <div class="tl__step">
+        <div class="tl__dot"></div>
+        <div class="tl__num">FASE 01 · JUNIO</div>
+        <div class="tl__title">Concepto, terrenos narrativos, guión y key visual.</div>
+        <div class="tl__desc">Trabajo del Bloque 01. Aprobaciones del concepto paragua, los 12 claims y el guión del vídeo. Cierre del key visual del sistema.</div>
+      </div>
+      <div class="tl__step">
+        <div class="tl__dot"></div>
+        <div class="tl__num">FASE 02 · JULIO - 1RA QUINCENA AGOSTO</div>
+        <div class="tl__title">Producción y postproducción de vídeo + paquete gráfico.</div>
+        <div class="tl__desc">Rodaje, generación IA, motion graphics y postpro del vídeo. En paralelo, producción de las 12 piezas y las plantillas Canva.</div>
+      </div>
+      <div class="tl__step">
+        <div class="tl__dot"></div>
+        <div class="tl__num">FASE 03 · MEDIADOS DE AGOSTO</div>
+        <div class="tl__title">Entrega final.</div>
+        <div class="tl__desc">Master files del vídeo, las 12 piezas con sus formatos y las plantillas Canva listas. Campaña preparada para arrancar en septiembre.</div>
+      </div>
+    </div>
+
+    <div class="note-box" style="margin-top:48px;max-width:900px;">
+      <strong>Inciso pre-verano.</strong> Si arrancamos con agilidad en la semana 1 y mantenemos aprobaciones rápidas (48 a 72h por hito), podemos comprimir el proceso para tener todo listo a <strong>principios de agosto</strong>, alineado con vuestro deseo de cerrar antes del verano. Es un compromiso compartido: depende de cadencia de aprobaciones por vuestra parte.
+    </div>
+  </div>
+
+  <div class="slide__footer">
+    <img src="assets/logo-samsa-light.png" class="logo-samsa--footer" alt="Samsa">
+    <div class="slide__footer__center" style="color:var(--steel);">04 · CRONOGRAMA</div>
+    <div class="slide__footer__right" style="color:var(--steel);">12</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 13 · SECTION DIVIDER 05 · INVERSION
+     ============================================ -->
+<section class="slide slide--dark" data-section="SECCION 5">
+  <div class="orb" style="width:400px;height:400px;top:80px;right:150px;opacity:0.4;"></div>
+  <div class="blob" style="width:500px;height:200px;bottom:100px;left:200px;opacity:0.2;transform:rotate(-15deg);"></div>
+
+  <div class="slide__content">
+    <div style="margin-top:auto;">
+      <p class="eyebrow" style="color:var(--fog);">05 — INVERSION</p>
+      <h1 class="section-title">
+        <span class="gradient-text">La horquilla.</span>
+      </h1>
+      <p class="body" style="margin-top:24px;max-width:680px;">
+        Horquilla orientativa, no número cerrado. Los bloques cerrados tienen rangos ajustados; el vídeo abre rango más amplio según la referencia elegida.
+      </p>
+    </div>
+  </div>
+
+  <div class="slide__footer">
+    <img src="assets/logo-samsa-dark.png" class="logo-samsa--footer" alt="Samsa">
+    <div class="slide__footer__center" style="color:var(--fog);">SECCION 5</div>
+    <div class="slide__footer__right" style="color:var(--fog);">13</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 14 · TABLA RESUMEN ECONOMICO
+     ============================================ -->
+<section class="slide slide--light" data-section="05 · INVERSION">
+  <div class="light-decor"></div>
+  <div class="slide__content slide__content--top">
+    <p class="eyebrow">INVERSION ORIENTATIVA</p>
+    <h2 style="margin-bottom:36px;">Resumen económico.</h2>
+
+    <div class="table-wrap" style="max-width:1100px;">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:38%;">Bloque</th>
+            <th style="width:26%;">Inversión orientativa</th>
+            <th style="width:22%;">Plazo</th>
+            <th style="width:14%;">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-bold">01 · Conceptualización y narrativa</td>
+            <td>€1.500 - €2.000</td>
+            <td>3 semanas</td>
+            <td>Horquilla</td>
+          </tr>
+          <tr>
+            <td class="td-bold">02 · Vídeo presentación</td>
+            <td>€2.500 - €6.000</td>
+            <td>4 - 5 semanas</td>
+            <td>Según referencia</td>
+          </tr>
+          <tr>
+            <td class="td-bold">03 · Paquete gráfico + Canva</td>
+            <td>€1.900 - €2.800</td>
+            <td>3 - 4 semanas</td>
+            <td>Horquilla</td>
+          </tr>
+          <tr class="row-total">
+            <td class="td-bold">Total orientativo</td>
+            <td><span class="gradient-text" style="font-weight:800;">€5.900 - €10.800</span></td>
+            <td>Mediados de agosto</td>
+            <td>Ajustable</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:12px;color:var(--steel);margin-top:24px;font-style:italic;max-width:1000px;">
+      Cifras en euros, orientativas. Cierre definitivo al confirmar la referencia de vídeo elegida y el alcance final de los terrenos narrativos. Quedan fuera de propuesta: derechos de imagen, talento, música licenciada y producción externa si la ruta de vídeo lo requiriera, que se presupuestan caso por caso. La gala de presentación se excluye de esta propuesta inicial.
+    </p>
+  </div>
+
+  <div class="slide__footer">
+    <img src="assets/logo-samsa-light.png" class="logo-samsa--footer" alt="Samsa">
+    <div class="slide__footer__center" style="color:var(--steel);">05 · INVERSION</div>
+    <div class="slide__footer__right" style="color:var(--steel);">14</div>
+  </div>
+</section>
+
+<!-- ============================================
+     SLIDE 15 · CIERRE
+     ============================================ -->
+<section class="slide slide--dark" data-section="">
+  <div class="orb" style="width:500px;height:500px;top:50px;right:100px;opacity:0.35;"></div>
+  <div class="blob" style="width:600px;height:250px;bottom:50px;left:100px;opacity:0.2;transform:rotate(-20deg);"></div>
+
+  <div class="slide__content">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:auto;">
+      <img src="assets/logo-samsa-dark.png" class="logo-samsa" alt="Samsa Creative">
+      <img src="assets/logo-cliente.png" alt="Teatros Luchana" style="height:64px;width:auto;">
+    </div>
+
+    <div style="margin-top:auto;margin-bottom:40px;">
+      <p class="eyebrow" style="color:var(--fog);">SIGUIENTE PASO</p>
+      <h1 class="section-title" style="font-size:clamp(56px,9vw,120px);">
+        Encendamos<br>
+        <span class="gradient-text">la temporada.</span>
+      </h1>
+      <p class="body" style="margin-top:24px;max-width:760px;">
+        Confirmadnos la referencia de vídeo que mejor encaja y cómo queréis tratar la redacción de los 12 claims (la trabajamos nosotros o la aportáis vosotros). Con esa señal pasamos a plan de producción detallado, calendario semana a semana y arranque del Bloque 01.
+      </p>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;">
+      <div>
+        <p style="font-size:11px;color:var(--fog);opacity:0.5;letter-spacing:0.14em;text-transform:uppercase;margin-bottom:6px;">CONTACTO</p>
+        <p style="font-size:14px;color:var(--paper);font-weight:500;">gonzalo@samsa.studio · production@samsa.studio</p>
+        <p style="font-size:13px;color:var(--fog);opacity:0.7;margin-top:4px;">samsa.studio</p>
+      </div>
+      <p style="font-size:13px;color:var(--fog);opacity:0.5;letter-spacing:0.1em;text-transform:uppercase;">PROPUESTA · 2026</p>
+    </div>
+  </div>
+</section>
+
+</div><!-- end deck -->
+
+<script>
+(function() {
+  const deck = document.getElementById('deck');
+  const slides = Array.from(deck.querySelectorAll('.slide'));
+  const bar = document.getElementById('progressBar');
+  let current = 0;
+
+  function goTo(i) {
+    if (i < 0 || i >= slides.length) return;
+    slides[current].classList.remove('active');
+    current = i;
+    slides[current].classList.add('active');
+    bar.style.width = ((current / (slides.length - 1)) * 100) + '%';
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') { e.preventDefault(); next(); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); prev(); }
+    if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+    if (e.key === 'End') { e.preventDefault(); goTo(slides.length - 1); }
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+  });
+
+  let touchStartX = 0;
+  deck.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+  deck.addEventListener('touchend', function(e) {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
+  });
+
+  deck.addEventListener('click', function(e) {
+    const x = e.clientX / window.innerWidth;
+    if (x > 0.75) next();
+    else if (x < 0.25) prev();
+  });
+
+  bar.style.width = '0%';
+})();
+</script>
+
+</body>
+</html>
